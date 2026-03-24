@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OAuth — JARVIS Quiz</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #111; }
+    code, pre { background: #f4f4f4; padding: 0.2em 0.4em; border-radius: 4px; word-break: break-all; }
+    pre { padding: 1rem; overflow-x: auto; }
+    .ok { color: #1a7f37; }
+    .err { color: #cf222e; }
+  </style>
+</head>
+<body>
+  <h1>Retorno do Login Kit (TikTok)</h1>
+  <p>Após autorizar no TikTok, você será redirecionado para esta página. O <strong>code</strong> abaixo é usado uma vez para obter o access token no seu computador.</p>
+  <p id="status">Lendo parâmetros da URL…</p>
+  <pre id="out" hidden></pre>
+  <script>
+    (function () {
+      var q = new URLSearchParams(window.location.search);
+      var code = q.get("code");
+      var err = q.get("error") || q.get("error_description");
+      var st = document.getElementById("status");
+      var pre = document.getElementById("out");
+      if (err) {
+        st.innerHTML = "<span class=\"err\">Erro retornado: " + (err || "desconhecido") + "</span>";
+        st.className = "err";
+        return;
+      }
+      if (code) {
+        st.innerHTML = "<span class=\"ok\">Autorização recebida. Copie o code abaixo e use no fluxo de token (servidor ou script).</span>";
+        pre.textContent = "code=" + code + (q.get("state") ? "\nstate=" + q.get("state") : "");
+        pre.hidden = false;
+        return;
+      }
+      st.textContent = "Nenhum code na URL ainda. Inicie o login no TikTok a partir do seu app; ao concluir, você voltará aqui com ?code=...";
+    })();
+  </script>
+</body>
+</html>
