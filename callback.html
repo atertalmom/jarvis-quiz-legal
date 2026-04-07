@@ -2,44 +2,32 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="tiktok-developers-site-verification" content="HbrepWdw4I2L0OBfOITqge75XOUtLF9g" />
-  <meta property="tiktok-developers-site-verification" content="HbrepWdw4I2L0OBfOITqge75XOUtLF9g" />
-  <!-- tiktok-developers-site-verification=HbrepWdw4I2L0OBfOITqge75XOUtLF9g -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OAuth — JARVIS Quiz</title>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #111; }
-    code, pre { background: #f4f4f4; padding: 0.2em 0.4em; border-radius: 4px; word-break: break-all; }
-    pre { padding: 1rem; overflow-x: auto; }
-    .ok { color: #1a7f37; }
-    .err { color: #cf222e; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 48rem; margin: 0 auto; padding: 2rem 1.35rem; line-height: 1.7; background: #fafbfc; color: #12151c; }
+    h1 { color: #0d3b66; font-size: 1.5rem; }
+    code { word-break: break-all; background: #eef2f7; padding: 0.2rem 0.45rem; border-radius: 6px; border: 1px solid #e6e9ef; }
+    a { color: #1e6bb8; }
   </style>
 </head>
 <body>
-  <h1>Retorno do Login Kit (TikTok)</h1>
-  <p>Após autorizar no TikTok, você será redirecionado para esta página. O <strong>code</strong> abaixo é usado uma vez para obter o access token no seu computador.</p>
-  <p id="status">Lendo parâmetros da URL…</p>
-  <pre id="out" hidden></pre>
+  <h1>Autorização TikTok</h1>
+  <p>Se você foi redirecionado aqui após autorizar o app, o TikTok adicionou um parâmetro <code>code</code> na URL. Copie o valor de <code>code</code> e use no fluxo de troca por <code>access_token</code> (servidor ou script), conforme a documentação oficial.</p>
+  <p id="show-code"></p>
+  <p><a href="index.html">Voltar ao início</a></p>
   <script>
     (function () {
-      var q = new URLSearchParams(window.location.search);
-      var code = q.get("code");
-      var err = q.get("error") || q.get("error_description");
-      var st = document.getElementById("status");
-      var pre = document.getElementById("out");
-      if (err) {
-        st.innerHTML = "<span class=\"err\">Erro retornado: " + (err || "desconhecido") + "</span>";
-        st.className = "err";
-        return;
+      var p = new URLSearchParams(window.location.search);
+      var c = p.get("code") || p.get("auth_code") || "";
+      var el = document.getElementById("show-code");
+      if (c) {
+        el.innerHTML = "<strong>Code recebido (parcial):</strong> <code>" + c.substring(0, 24) + "…</code> (não compartilhe o code completo em público.)";
+      } else {
+        el.textContent = "Nenhum code na URL neste momento. Inicie o fluxo OAuth a partir do app.";
       }
-      if (code) {
-        st.innerHTML = "<span class=\"ok\">Autorização recebida. Copie o code abaixo e use no fluxo de token (servidor ou script).</span>";
-        pre.textContent = "code=" + code + (q.get("state") ? "\nstate=" + q.get("state") : "");
-        pre.hidden = false;
-        return;
-      }
-      st.textContent = "Nenhum code na URL ainda. Inicie o login no TikTok a partir do seu app; ao concluir, você voltará aqui com ?code=...";
     })();
   </script>
+  <p style="margin-top:2rem;color:#9aa3b2;font-size:0.9rem;">English: OAuth redirect page for TikTok Login Kit. Exchange the authorization code server-side for tokens.</p>
 </body>
 </html>

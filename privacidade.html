@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacidade e Segurança — JARVIS Quiz</title>
+    <style>
+        body { font-family: system-ui, -apple-system, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px; background: #f8f9fa; }
+        h1 { color: #0d3b66; border-bottom: 2px solid #0d3b66; padding-bottom: 10px; }
+        h2 { color: #0d3b66; margin-top: 30px; }
+        .highlight { background: #f0f7ff; padding: 15px; border-left: 5px solid #0d3b66; margin: 20px 0; }
+        a { color: #1e6bb8; }
+    </style>
+</head>
+<body>
+    <p><a href="index.html">← Voltar ao início</a></p>
+
+    <h1>Privacidade e Segurança de Dados</h1>
+    <p>O ecossistema <strong>J.A.R.V.I.S.</strong> e o aplicativo <strong>JARVIS Quiz</strong> foram concebidos sob o princípio da <em>privacy by design</em>. A arquitetura prioriza a soberania dos dados do usuário e o uso de integrações oficiais quando há conexão com plataformas terceiras.</p>
+
+    <div class="highlight">
+        <strong>Compromisso principal:</strong> não vendemos, alugamos nem compartilhamos seus dados de produção com terceiros para fins publicitários.
+    </div>
+
+    <h2>1. Processamento local e APIs oficiais</h2>
+    <p>
+        No <strong>JARVIS Quiz</strong>, a montagem do vídeo (quiz em formato 9:16) ocorre <strong>localmente</strong> no computador do usuário.
+        A integração com o <strong>TikTok</strong> utiliza exclusivamente as <strong>APIs oficiais</strong> do programa <strong>TikTok for Developers</strong>
+        (OAuth 2.0 / Login Kit e Content Posting): o envio, quando o usuário opta por utilizá-lo, destina-se <strong>apenas a rascunhos</strong>
+        na caixa de entrada do aplicativo TikTok, sem publicação automática no feed público.
+    </p>
+    <p>
+        Outros módulos do ecossistema J.A.R.V.I.S., quando ativados pelo usuário, podem utilizar integrações diretas com APIs oficiais dos respectivos provedores
+        (por exemplo Google, Meta, OpenAI), conforme credenciais e permissões configuradas pelo próprio usuário. Os dados em trânsito seguem os canais seguros
+        (HTTPS/TLS) exigidos por essas plataformas e são utilizados para executar apenas as automações solicitadas.
+    </p>
+
+    <h2>2. Tratamento de rascunhos e conteúdo</h2>
+    <p>
+        Conteúdos gerados pelo módulo de quiz são tratados como arquivos de trabalho do usuário. Não mantemos cópia permanente dos seus vídeos em servidores operados
+        pelo desenvolvedor; o armazenamento contínuo fica sob controle do ambiente local do usuário, salvo quando o próprio usuário envia um rascunho à conta TikTok
+        via API oficial, sujeito às políticas do TikTok.
+    </p>
+
+    <h2>3. Segurança e autenticação</h2>
+    <p>
+        Utilizamos fluxos de autenticação padrão de mercado (<strong>OAuth 2.0</strong>) para que o acesso às integrações (incluindo TikTok) seja concedido de forma
+        explícita, segura e <strong>revogável</strong> a qualquer momento pelo titular da conta nas configurações da respectiva plataforma.
+    </p>
+
+    <h2>4. Contato</h2>
+    <p>
+        Para questões sobre o tratamento de dados ou sobre este aplicativo:
+        <a href="mailto:atertalmom@gmail.com"><strong>atertalmom@gmail.com</strong></a>
+    </p>
+
+    <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 0.9em; color: #555;">
+        <strong>English summary:</strong> JARVIS Quiz processes quiz videos locally. TikTok integration uses official TikTok for Developers APIs for draft/inbox upload only, with OAuth 2.0. We do not sell your data for ads. Contact: atertalmom@gmail.com
+    </p>
+
+    <p style="margin-top: 30px; font-size: 0.8em; color: #777;">Última atualização: abril de 2026</p>
+</body>
+</html>
