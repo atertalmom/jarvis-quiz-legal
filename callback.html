@@ -13,21 +13,32 @@
 </head>
 <body>
   <h1>Autorização TikTok</h1>
-  <p>Se você foi redirecionado aqui após autorizar o app, o TikTok adicionou um parâmetro <code>code</code> na URL. Copie o valor de <code>code</code> e use no fluxo de troca por <code>access_token</code> (servidor ou script), conforme a documentação oficial.</p>
+  <p id="status">Processando autorização…</p>
   <p id="show-code"></p>
   <p><a href="index.html">Voltar ao início</a></p>
   <script>
     (function () {
       var p = new URLSearchParams(window.location.search);
       var c = p.get("code") || p.get("auth_code") || "";
+      var state = p.get("state") || "";
+      var err = p.get("error") || "";
       var el = document.getElementById("show-code");
-      if (c) {
-        el.innerHTML = "<strong>Code recebido (parcial):</strong> <code>" + c.substring(0, 24) + "…</code> (não compartilhe o code completo em público.)";
-      } else {
-        el.textContent = "Nenhum code na URL neste momento. Inicie o fluxo OAuth a partir do app.";
+      var st = document.getElementById("status");
+      if (err) {
+        st.textContent = "Erro OAuth: " + err;
+        return;
       }
+      if (c) {
+        st.textContent = "Redirecionando para o JARVIS Quiz no seu computador…";
+        el.innerHTML = "<strong>Code recebido (parcial):</strong> <code>" + c.substring(0, 24) + "…</code>";
+        var finish = "http://localhost:3455/oauth/finish?code=" + encodeURIComponent(c);
+        if (state) finish += "&state=" + encodeURIComponent(state);
+        window.location.replace(finish);
+        return;
+      }
+      st.textContent = "Nenhum code na URL. Inicie o fluxo OAuth a partir do painel JARVIS Quiz.";
     })();
   </script>
-  <p style="margin-top:2rem;color:#9aa3b2;font-size:0.9rem;">English: OAuth redirect page for TikTok Login Kit. Exchange the authorization code server-side for tokens.</p>
+  <p style="margin-top:2rem;color:#9aa3b2;font-size:0.9rem;">English: OAuth redirect for TikTok Login Kit (Web). Redirects to local JARVIS Quiz panel.</p>
 </body>
 </html>
