@@ -15,6 +15,10 @@
   <h1>Autorização TikTok</h1>
   <p id="status">Processando autorização…</p>
   <p id="show-code"></p>
+  <form id="finish-form" method="POST" action="http://localhost:3455/oauth/finish" style="display:none">
+    <input type="hidden" name="code" id="code-field" />
+    <input type="hidden" name="state" id="state-field" />
+  </form>
   <p><a href="index.html">Voltar ao início</a></p>
   <script>
     (function () {
@@ -26,19 +30,20 @@
       var st = document.getElementById("status");
       if (err) {
         st.textContent = "Erro OAuth: " + err;
+        window.location.replace("http://localhost:3455/oauth/finish?error=" + encodeURIComponent(err));
         return;
       }
       if (c) {
-        st.textContent = "Redirecionando para o JARVIS Quiz no seu computador…";
+        st.textContent = "Enviando code ao JARVIS Quiz (localhost)…";
         el.innerHTML = "<strong>Code recebido (parcial):</strong> <code>" + c.substring(0, 24) + "…</code>";
-        var finish = "http://localhost:3455/oauth/finish?code=" + encodeURIComponent(c);
-        if (state) finish += "&state=" + encodeURIComponent(state);
-        window.location.replace(finish);
+        document.getElementById("code-field").value = c;
+        document.getElementById("state-field").value = state;
+        document.getElementById("finish-form").submit();
         return;
       }
       st.textContent = "Nenhum code na URL. Inicie o fluxo OAuth a partir do painel JARVIS Quiz.";
     })();
   </script>
-  <p style="margin-top:2rem;color:#9aa3b2;font-size:0.9rem;">English: OAuth redirect for TikTok Login Kit (Web). Redirects to local JARVIS Quiz panel.</p>
+  <p style="margin-top:2rem;color:#9aa3b2;font-size:0.9rem;">English: OAuth redirect for TikTok Login Kit (Web). POSTs code to local JARVIS Quiz panel.</p>
 </body>
 </html>
